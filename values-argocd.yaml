@@ -1,0 +1,7 @@
+server:
+  ingress:
+    enabled: false
+  extraArgs:
+    - --insecure
+  service:
+    type: LoadBalancer

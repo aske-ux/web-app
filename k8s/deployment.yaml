@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+  namespace: web-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      imagePullSecrets:
+      - name: ghcr-secret
+      containers:
+      - name: web-app
+        image: ghcr.io/aske-ux/app:latest
+        ports:
+        - containerPort: 5000
+        envFrom:
+        - secretRef:
+            name: web-app-secrets
+        volumeMounts:
+        - name: data
+          mountPath: /app/instance
+        - name: static
+          mountPath: /app/app/static
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+      volumes:
+      - name: data
+        emptyDir: {}
+      - name: static
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-app-service
+  namespace: web-app
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 5000
+  selector:
+    app: web-app

@@ -1,0 +1,5 @@
+appName: app
+repoURL: https://github.com/aske-ux/app.git
+targetRevision: main
+path: k8s
+destinationNamespace: app
