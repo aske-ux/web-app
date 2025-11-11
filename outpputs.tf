@@ -14,3 +14,15 @@ EOT
 output "configure_kubectl" {
     value = "aws eks update-kubeconfig --name ${module.eks.cluster_name} --region us-east-1"
 }
+
+output "grafana_url" {
+  value = try(
+    "http://${data.kubernetes_service.grafana.status.0.load_balancer.0.ingress.0.hostname}",
+    "Grafana not ready yet"
+  )
+}
+
+output "grafana_admin_password" {
+  value     = var.grafana_admin_password
+  sensitive = true
+}

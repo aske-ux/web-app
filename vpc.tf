@@ -3,12 +3,11 @@ module "vpc" {
     version = "~> 5.13"
     
     name = "askem-eks-tf-vpc"
-    cidr = "192.168.100.0/26"
-    
-    
-    azs  = slice(data.aws_availability_zones.available.names, 0, 2)
-    private_subnets = ["192.168.100.0/28", "192.168.100.16/28"]
-    public_subnets  = ["192.168.100.32/28", "192.168.100.48/28"]
+    cidr = "192.168.100.0/24"  # ← 256 IP
+
+    azs             = slice(data.aws_availability_zones.available.names, 0, 2)
+    private_subnets = ["192.168.100.0/26", "192.168.101.0/26"]  # 2×62 = 124
+    public_subnets  = ["192.168.102.0/26", "192.168.103.0/26"]  # 2×62 = 124
 
     enable_nat_gateway   = true
     single_nat_gateway   = true

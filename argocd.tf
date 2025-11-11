@@ -6,6 +6,11 @@ data "aws_eks_cluster_auth" "main" {
   name = module.eks.cluster_name
 }
 
+resource "kubernetes_namespace" "app" {
+  metadata { name = "app" }
+  depends_on = [module.eks.cluster_name]
+}
+
 provider "kubernetes" {
   host                   = data.aws_eks_cluster.main.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.main.certificate_authority[0].data)
@@ -28,7 +33,6 @@ resource "helm_release" "argocd" {
   create_namespace = true
   values = [file("values-argocd.yaml")]
 }
-
 
 resource "helm_release" "argocd_app" {
   name       = "argocd-app"

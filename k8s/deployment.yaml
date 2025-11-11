@@ -20,9 +20,6 @@ spec:
         image: ghcr.io/aske-ux/app:latest
         ports:
         - containerPort: 5000
-        envFrom:
-        - secretRef:
-            name: web-app-secrets
         volumeMounts:
         - name: data
           mountPath: /app/instance
