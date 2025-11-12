@@ -17,7 +17,7 @@ output "configure_kubectl" {
 
 output "grafana_url" {
   value = try(
-    "http://${data.kubernetes_service.grafana.status.0.load_balancer.0.ingress.0.hostname}",
+    "http://${data.kubernetes_service.grafana.status[0].load_balancer[0].ingress[0].hostname}",
     "Grafana not ready yet"
   )
 }

@@ -31,7 +31,7 @@ resource "helm_release" "kube_prometheus_stack" {
               interval = "15s"
             }
           ]
-          namespaceSelector = { matchNames = ["app"] }
+          namespaceSelector = { matchNames = ["web-app"] }
         }
       ]
     })
