@@ -7,7 +7,7 @@ data "aws_eks_cluster_auth" "main" {
 }
 
 resource "kubernetes_namespace" "app" {
-  metadata { name = "app" }
+  metadata { name = "web-app" }
   depends_on = [module.eks.cluster_name]
 }
 

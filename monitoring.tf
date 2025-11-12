@@ -17,6 +17,18 @@ resource "helm_release" "kube_prometheus_stack" {
         adminPassword = var.grafana_admin_password
         service       = { type = "LoadBalancer" }
       }
+      additionalDataSources = [
+        {
+          name      = "Prometheus"
+          type      = "prometheus"
+          access    = "proxy"
+          url       = "http://kps-kube-prometheus-stack-prometheus.monitoring:9090/"
+          isDefault = true
+          jsonData  = {
+            timeInterval = "30s"
+          }
+        }
+      ]
 
       additionalServiceMonitors = [
         {
