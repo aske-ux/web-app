@@ -5,6 +5,11 @@ output "argocd_url" {
   )
 }
 
+output "grafana_admin_password" {
+  value     = random_password.grafana_admin.result
+  sensitive = true
+}
+
 output "grafana_url" {
   value = try(
     "http://${data.kubernetes_service.grafana.status[0].load_balancer[0].ingress[0].hostname}",
