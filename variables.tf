@@ -8,10 +8,3 @@ variable "cluster_name" {
   type        = string
   default     = "askem-tf-eks"
 }
-
-variable "grafana_admin_password" {
-  description = "Grafana admin password"
-  type        = string
-  sensitive   = true
-  default     = "admin123"
-}

@@ -7,7 +7,7 @@ output "argocd_url" {
 
 output "grafana_admin_password" {
   value     = random_password.grafana_admin.result
-  sensitive = true
+  #sensitive = true
 }
 
 output "grafana_url" {
@@ -27,9 +27,3 @@ output "configure_kubectl" {
     value = "aws eks update-kubeconfig --name ${module.eks.cluster_name} --region us-east-1"
 }
 
-
-
-output "grafana_admin_password" {
-  value     = var.grafana_admin_password
-  sensitive = true
-}

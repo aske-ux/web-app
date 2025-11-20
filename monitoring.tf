@@ -24,7 +24,7 @@ resource "helm_release" "kube_prometheus_stack" {
   values = [
     yamlencode({
       grafana = {
-e       xistingSecret = kubernetes_secret.grafana.metadata[0].name
+        existingSecret = kubernetes_secret.grafana.metadata[0].name
         adminUserKey   = "admin-user"
         adminPasswordKey = "admin-password"
         service       = { type = "LoadBalancer" }
